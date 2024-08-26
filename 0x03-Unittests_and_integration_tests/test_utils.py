@@ -42,6 +42,7 @@ class TestGetJson(unittest.TestCase):
         result = get_json(test_url)
         self.assertEqual(result, test_payload)
 
+
 class TestMemoize(unittest.TestCase):
     """does memoization tests"""
     def test_memoize(self):
@@ -51,6 +52,7 @@ class TestMemoize(unittest.TestCase):
             def a_method(self):
                 """a method"""
                 return 42
+
             @memoize
             def a_property(self):
                 return self.a_method()
