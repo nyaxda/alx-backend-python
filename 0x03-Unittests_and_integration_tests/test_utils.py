@@ -26,6 +26,7 @@ class TestAccessNestedMap(unittest.TestCase):
             ({"a": 1}, ("a", "b"), KeyError),
         ])
     def test_access_nested_map_exception(self, nested_map, path, exception):
+        """testint nested maps"""
         with self.assertRaises(exception):
             access_nested_map(nested_map, path)
 
@@ -38,6 +39,7 @@ class TestGetJson(unittest.TestCase):
     ])
     @patch('requests.get')
     def test_get_json(self, test_url, test_payload, test_get):
+        """test get_json function"""
         test_get.return_value.json.return_value = test_payload
         result = get_json(test_url)
         self.assertEqual(result, test_payload)
