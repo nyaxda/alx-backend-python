@@ -3,7 +3,7 @@
 
 from parameterized import parameterized
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch, PropertyMock
 from client import GithubOrgClient
 from functools import memoize
 
@@ -42,7 +42,7 @@ class TestGithubOrgClient(unittest.TestCase):
         with patch.object(
              GithubOrgClient,
              '_public_repos_url',
-             new_callable=Mock) as mock_public_repos_url:
+             new_callable=PropertyMock) as mock_public_repos_url:
             mock_public_repos_url.return_value = "http://mock_url"
             client = GithubOrgClient("abc")
             result = client.public_repos()
