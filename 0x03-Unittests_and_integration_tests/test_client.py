@@ -5,7 +5,7 @@ from parameterized import parameterized
 import unittest
 from unittest.mock import Mock, patch, PropertyMock
 from client import GithubOrgClient
-from functools import memoize
+from utils import memoize
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -34,19 +34,21 @@ class TestGithubOrgClient(unittest.TestCase):
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
         """test client.public_repos"""
-        mock_get_json.return_value = [
-            {"name": "repo1"},
-            {"name": "repo2"},
-            {"name": "repo3"}
+        fake_repos_payload = [
+            {"name": "repo1", "license": {"key": "mit"}},
+            {"name": "repo2", "license": {"key": "apache-2.0"}},
+            {"name": "repo3", "license": {"key": "mit"}}
         ]
+        mock_get_json.return_value = fake_repos_payload
         with patch.object(
              GithubOrgClient,
              '_public_repos_url',
              new_callable=PropertyMock) as mock_public_repos_url:
             mock_public_repos_url.return_value = "http://mock_url"
-            client = GithubOrgClient("abc")
+            client = GithubOrgClient("testorg")
             result = client.public_repos()
-            self.assertEqual(result, ["repo1", "repo2", "repo3"])
+            expected_repos = ["repo1", "repo2", "repo3"]
+            self.assertEqual(result, expected_repos)
             mock_public_repos_url.assert_called_once()
             mock_get_json.assert_called_once_with("http://mock_url")
 
