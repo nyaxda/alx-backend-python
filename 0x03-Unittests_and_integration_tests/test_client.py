@@ -6,6 +6,7 @@ import unittest
 from unittest.mock import Mock, patch, PropertyMock
 from client import GithubOrgClient
 from utils import memoize
+import fixtures
 
 
 class TestGithubOrgClient(unittest.TestCase):
