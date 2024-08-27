@@ -2,6 +2,7 @@
 """ Clients test"""
 
 from parameterized import parameterized
+from parameterized import parameterized_class
 import unittest
 from unittest.mock import Mock, patch, PropertyMock
 from client import GithubOrgClient
